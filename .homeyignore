@@ -1,0 +1,9 @@
+node_modules/.cache/
+test/
+*.tgz
+.git/
+work/
+scripts/
+docs/
+dist/
+.github/

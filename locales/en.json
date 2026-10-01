@@ -1,0 +1,26 @@
+{
+  "offline": "No fresh Anker data",
+  "connecting": "Connecting to Anker…",
+  "repair": "Connection failed. Check internet or repair the device.",
+  "no_devices": "No A2345 found in this account region.",
+  "wrong_account": "Use the original account for this charger.",
+  "command_failed": "Charger did not confirm the action. Check its state before retrying.",
+  "language": "en",
+  "pair": {
+    "region": "Anker account region",
+    "description": "Select your Anker account region and country.",
+    "country": "Country code",
+    "region_label": "Region",
+    "next": "Next"
+  },
+  "modes": {
+    "1": "AI Power",
+    "2": "Connection priority",
+    "3": "Dual laptop",
+    "4": "Low power",
+    "5": "Anker custom profile"
+  },
+  "port_off": "Power off",
+  "brightness_range": "Brightness: 20–100%, in steps of 5%.",
+  "time_format": "Enter HH:MM, for example 22:30."
+}

@@ -1,0 +1,33 @@
+{
+  "name": "com.ed.anker-prime",
+  "version": "0.1.8",
+  "private": true,
+  "description": "Anker Prime A2345 for Homey Pro",
+  "main": "app.js",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "homey": "homey",
+    "install:homey": "node scripts/install-homey.js",
+    "build:check": "node scripts/install-homey.js --build-only",
+    "validate": "homey app validate --level publish"
+  },
+  "dependencies": {
+    "mqtt": "5.15.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/edsallo/homey-anker-prime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/edsallo/homey-anker-prime/issues"
+  },
+  "devDependencies": {
+    "form-data": "4.0.6",
+    "homey": "4.5.3",
+    "tar": "7.5.22"
+  }
+}

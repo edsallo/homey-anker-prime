@@ -1,0 +1,1829 @@
+{
+  "id": "com.ed.anker-prime",
+  "version": "0.1.8",
+  "compatibility": ">=13.5.0",
+  "sdk": 3,
+  "name": {
+    "en": "Anker",
+    "ru": "Anker"
+  },
+  "description": {
+    "en": "See and control every USB port",
+    "ru": "Питание каждого USB-порта под контролем"
+  },
+  "category": [
+    "appliances"
+  ],
+  "brandColor": "#00A7D8",
+  "platforms": [
+    "local"
+  ],
+  "permissions": [],
+  "author": {
+    "name": "Ed"
+  },
+  "images": {
+    "small": "/assets/images/small.png",
+    "large": "/assets/images/large.png"
+  },
+  "drivers": [
+    {
+      "id": "prime",
+      "name": {
+        "en": "Prime 250W · A2345",
+        "ru": "Prime 250W · A2345"
+      },
+      "class": "other",
+      "capabilities": [
+        "measure_power.usb",
+        "anker_mode",
+        "anker_mode_current",
+        "measure_power.c1",
+        "measure_power.c2",
+        "measure_power.c3",
+        "measure_power.c4",
+        "measure_power.a1",
+        "measure_power.a2",
+        "measure_voltage.c1",
+        "measure_current.c1",
+        "measure_voltage.c2",
+        "measure_current.c2",
+        "measure_voltage.c3",
+        "measure_current.c3",
+        "measure_voltage.c4",
+        "measure_current.c4",
+        "measure_voltage.a1",
+        "measure_current.a1",
+        "measure_voltage.a2",
+        "measure_current.a2",
+        "anker_port_select",
+        "anker_selected_label",
+        "measure_power.selected",
+        "measure_voltage.selected",
+        "measure_current.selected"
+      ],
+      "capabilitiesOptions": {
+        "measure_power.usb": {
+          "title": {
+            "ru": "Общая мощность",
+            "en": "Total power"
+          },
+          "decimals": 1
+        },
+        "measure_power.c1": {
+          "title": {
+            "en": "C1",
+            "ru": "C1"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_power.c2": {
+          "title": {
+            "en": "C2",
+            "ru": "C2"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_power.c3": {
+          "title": {
+            "en": "C3",
+            "ru": "C3"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_power.c4": {
+          "title": {
+            "en": "C4",
+            "ru": "C4"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_power.a1": {
+          "title": {
+            "en": "A1",
+            "ru": "A1"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_power.a2": {
+          "title": {
+            "en": "A2",
+            "ru": "A2"
+          },
+          "decimals": 1,
+          "uiComponent": null
+        },
+        "measure_voltage.c1": {
+          "title": {
+            "ru": "C1 · Напряжение",
+            "en": "C1 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.c1": {
+          "title": {
+            "ru": "C1 · Ток",
+            "en": "C1 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_voltage.c2": {
+          "title": {
+            "ru": "C2 · Напряжение",
+            "en": "C2 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.c2": {
+          "title": {
+            "ru": "C2 · Ток",
+            "en": "C2 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_voltage.c3": {
+          "title": {
+            "ru": "C3 · Напряжение",
+            "en": "C3 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.c3": {
+          "title": {
+            "ru": "C3 · Ток",
+            "en": "C3 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_voltage.c4": {
+          "title": {
+            "ru": "C4 · Напряжение",
+            "en": "C4 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.c4": {
+          "title": {
+            "ru": "C4 · Ток",
+            "en": "C4 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_voltage.a1": {
+          "title": {
+            "ru": "A1 · Напряжение",
+            "en": "A1 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.a1": {
+          "title": {
+            "ru": "A1 · Ток",
+            "en": "A1 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_voltage.a2": {
+          "title": {
+            "ru": "A2 · Напряжение",
+            "en": "A2 · Voltage"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "measure_current.a2": {
+          "title": {
+            "ru": "A2 · Ток",
+            "en": "A2 · Current"
+          },
+          "decimals": 2,
+          "uiComponent": null
+        },
+        "anker_port_select": {
+          "preventInsights": true,
+          "preventTag": true
+        },
+        "anker_selected_label": {
+          "preventInsights": true,
+          "preventTag": true
+        },
+        "measure_power.selected": {
+          "preventInsights": true,
+          "preventTag": true,
+          "title": {
+            "ru": "Мощность порта",
+            "en": "Port power"
+          },
+          "decimals": 2
+        },
+        "measure_voltage.selected": {
+          "preventInsights": true,
+          "preventTag": true,
+          "title": {
+            "ru": "Напряжение порта",
+            "en": "Port voltage"
+          },
+          "decimals": 2
+        },
+        "measure_current.selected": {
+          "preventInsights": true,
+          "preventTag": true,
+          "title": {
+            "ru": "Ток порта",
+            "en": "Port current"
+          },
+          "decimals": 2
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/prime/assets/images/small.png",
+        "large": "/drivers/prime/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "region"
+        },
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "title": {
+              "en": "Anker account",
+              "ru": "Аккаунт Anker"
+            },
+            "usernameLabel": {
+              "en": "Email",
+              "ru": "Email"
+            },
+            "passwordLabel": {
+              "en": "Password",
+              "ru": "Пароль"
+            }
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices",
+            "prev": "login_credentials"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "repair": [
+        {
+          "id": "region"
+        },
+        {
+          "id": "login_credentials",
+          "template": "login_credentials",
+          "options": {
+            "title": {
+              "en": "Anker account",
+              "ru": "Аккаунт Anker"
+            },
+            "usernameLabel": {
+              "en": "Email",
+              "ru": "Email"
+            },
+            "passwordLabel": {
+              "en": "Password",
+              "ru": "Пароль"
+            }
+          }
+        },
+        {
+          "id": "done",
+          "template": "done"
+        }
+      ],
+      "settings": [
+        {
+          "id": "label_C1",
+          "type": "text",
+          "label": {
+            "en": "C1 name",
+            "ru": "Имя C1"
+          },
+          "value": ""
+        },
+        {
+          "id": "label_C2",
+          "type": "text",
+          "label": {
+            "en": "C2 name",
+            "ru": "Имя C2"
+          },
+          "value": ""
+        },
+        {
+          "id": "label_C3",
+          "type": "text",
+          "label": {
+            "en": "C3 name",
+            "ru": "Имя C3"
+          },
+          "value": ""
+        },
+        {
+          "id": "label_C4",
+          "type": "text",
+          "label": {
+            "en": "C4 name",
+            "ru": "Имя C4"
+          },
+          "value": ""
+        },
+        {
+          "id": "label_A1",
+          "type": "text",
+          "label": {
+            "en": "A1 name",
+            "ru": "Имя A1"
+          },
+          "value": ""
+        },
+        {
+          "id": "label_A2",
+          "type": "text",
+          "label": {
+            "en": "A2 name",
+            "ru": "Имя A2"
+          },
+          "value": ""
+        },
+        {
+          "type": "group",
+          "label": {
+            "ru": "Дисплей",
+            "en": "Display"
+          },
+          "children": [
+            {
+              "id": "display_brightness",
+              "type": "number",
+              "label": {
+                "ru": "Яркость, %",
+                "en": "Brightness, %"
+              },
+              "value": 60,
+              "min": 20,
+              "max": 100,
+              "step": 5,
+              "hint": {
+                "ru": "От 20 до 100%, с шагом 5%.",
+                "en": "20–100%, in steps of 5%."
+              }
+            },
+            {
+              "id": "display_theme",
+              "type": "dropdown",
+              "label": {
+                "ru": "Скринсейвер",
+                "en": "Screensaver"
+              },
+              "value": "other",
+              "values": [
+                {
+                  "id": "other",
+                  "label": {
+                    "ru": "Другой / из Anker",
+                    "en": "Other / from Anker"
+                  }
+                },
+                {
+                  "id": "948897111",
+                  "label": {
+                    "ru": "Celestial",
+                    "en": "Celestial"
+                  }
+                },
+                {
+                  "id": "236632206",
+                  "label": {
+                    "ru": "Robotic",
+                    "en": "Robotic"
+                  }
+                },
+                {
+                  "id": "938963984",
+                  "label": {
+                    "ru": "Lunar",
+                    "en": "Lunar"
+                  }
+                },
+                {
+                  "id": "819158638",
+                  "label": {
+                    "ru": "Galactic",
+                    "en": "Galactic"
+                  }
+                },
+                {
+                  "id": "95294588",
+                  "label": {
+                    "ru": "Meteorite",
+                    "en": "Meteorite"
+                  }
+                },
+                {
+                  "id": "130254227",
+                  "label": {
+                    "ru": "Floral Waltz",
+                    "en": "Floral Waltz"
+                  }
+                },
+                {
+                  "id": "347235639",
+                  "label": {
+                    "ru": "Impressionist Bloom",
+                    "en": "Impressionist Bloom"
+                  }
+                },
+                {
+                  "id": "172033515",
+                  "label": {
+                    "ru": "Sweet Treats",
+                    "en": "Sweet Treats"
+                  }
+                },
+                {
+                  "id": "496957652",
+                  "label": {
+                    "ru": "Rhythmic Hue",
+                    "en": "Rhythmic Hue"
+                  }
+                }
+              ],
+              "hint": {
+                "ru": "Штатные заставки Anker. «Другой / из Anker» сохраняет текущую заставку.",
+                "en": "Stock Anker themes. Other / from Anker keeps the current theme."
+              }
+            },
+            {
+              "id": "display_timeout",
+              "type": "dropdown",
+              "label": {
+                "ru": "Выключать экран через",
+                "en": "Turn display off after"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "ru": "Никогда",
+                    "en": "Never"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "ru": "30 секунд",
+                    "en": "30 seconds"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "ru": "1 минуту",
+                    "en": "1 minute"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "ru": "5 минут",
+                    "en": "5 minutes"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "ru": "30 минут",
+                    "en": "30 minutes"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "ru": "Управление",
+            "en": "Controls"
+          },
+          "children": [
+            {
+              "id": "knob_direction",
+              "type": "dropdown",
+              "label": {
+                "ru": "Направление энкодера",
+                "en": "Dial direction"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "ru": "Прямое",
+                    "en": "Forward"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "ru": "Обратное",
+                    "en": "Reverse"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "port_priority",
+              "type": "dropdown",
+              "label": {
+                "ru": "Приоритет USB-C",
+                "en": "USB-C priority"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "ru": "Без приоритета",
+                    "en": "No priority"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "ru": "C1",
+                    "en": "C1"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "ru": "C2",
+                    "en": "C2"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "ru": "C1 + C2",
+                    "en": "C1 + C2"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "ru": "C3",
+                    "en": "C3"
+                  }
+                },
+                {
+                  "id": "5",
+                  "label": {
+                    "ru": "C1 + C3",
+                    "en": "C1 + C3"
+                  }
+                },
+                {
+                  "id": "6",
+                  "label": {
+                    "ru": "C2 + C3",
+                    "en": "C2 + C3"
+                  }
+                },
+                {
+                  "id": "8",
+                  "label": {
+                    "ru": "C4",
+                    "en": "C4"
+                  }
+                },
+                {
+                  "id": "9",
+                  "label": {
+                    "ru": "C1 + C4",
+                    "en": "C1 + C4"
+                  }
+                },
+                {
+                  "id": "10",
+                  "label": {
+                    "ru": "C2 + C4",
+                    "en": "C2 + C4"
+                  }
+                },
+                {
+                  "id": "12",
+                  "label": {
+                    "ru": "C3 + C4",
+                    "en": "C3 + C4"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "ru": "Часы и расписание",
+            "en": "Clock and schedule"
+          },
+          "children": [
+            {
+              "id": "clock_format",
+              "type": "dropdown",
+              "label": {
+                "ru": "Формат времени",
+                "en": "Time format"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "ru": "12 часов",
+                    "en": "12 hours"
+                  }
+                },
+                {
+                  "id": "1",
+                  "label": {
+                    "ru": "24 часа",
+                    "en": "24 hours"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "clock_start",
+              "type": "text",
+              "label": {
+                "ru": "Показывать часы с",
+                "en": "Show clock from"
+              },
+              "value": "00:00",
+              "hint": {
+                "ru": "Формат ЧЧ:ММ, по времени зарядки.",
+                "en": "HH:MM, charger local time."
+              }
+            },
+            {
+              "id": "clock_end",
+              "type": "text",
+              "label": {
+                "ru": "Показывать часы до",
+                "en": "Show clock until"
+              },
+              "value": "00:00",
+              "hint": {
+                "ru": "Формат ЧЧ:ММ, по времени зарядки.",
+                "en": "HH:MM, charger local time."
+              }
+            },
+            {
+              "id": "clock_day_0",
+              "type": "checkbox",
+              "label": {
+                "ru": "Понедельник",
+                "en": "Monday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_1",
+              "type": "checkbox",
+              "label": {
+                "ru": "Вторник",
+                "en": "Tuesday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_2",
+              "type": "checkbox",
+              "label": {
+                "ru": "Среда",
+                "en": "Wednesday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_3",
+              "type": "checkbox",
+              "label": {
+                "ru": "Четверг",
+                "en": "Thursday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_4",
+              "type": "checkbox",
+              "label": {
+                "ru": "Пятница",
+                "en": "Friday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_5",
+              "type": "checkbox",
+              "label": {
+                "ru": "Суббота",
+                "en": "Saturday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_day_6",
+              "type": "checkbox",
+              "label": {
+                "ru": "Воскресенье",
+                "en": "Sunday"
+              },
+              "value": true
+            },
+            {
+              "id": "clock_holiday",
+              "type": "checkbox",
+              "label": {
+                "ru": "Режим выходных Anker",
+                "en": "Anker holiday mode"
+              },
+              "value": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "port",
+      "name": {
+        "en": "USB ports (optional)",
+        "ru": "USB-порты (дополнительно)"
+      },
+      "class": "other",
+      "capabilities": [
+        "onoff",
+        "measure_power.usb",
+        "measure_voltage",
+        "measure_current"
+      ],
+      "capabilitiesOptions": {
+        "measure_power.usb": {
+          "title": {
+            "en": "USB output",
+            "ru": "Выход USB"
+          },
+          "decimals": 1
+        }
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "cloud"
+      ],
+      "images": {
+        "small": "/drivers/port/assets/images/small.png",
+        "large": "/drivers/port/assets/images/large.png"
+      },
+      "pair": [
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ]
+    }
+  ],
+  "capabilities": {
+    "anker_mode": {
+      "type": "enum",
+      "title": {
+        "ru": "Выбрать режим",
+        "en": "Select mode"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "icon": "/assets/mode.svg",
+      "values": [
+        {
+          "id": "1",
+          "title": {
+            "en": "AI Power",
+            "ru": "AI Power"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Connection priority",
+            "ru": "Приоритет подключения"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Dual laptop",
+            "ru": "Два ноутбука"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Low power",
+            "ru": "Малая мощность"
+          }
+        }
+      ]
+    },
+    "anker_mode_current": {
+      "type": "string",
+      "title": {
+        "ru": "Текущий режим",
+        "en": "Current mode"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/assets/mode.svg"
+    },
+    "anker_port_summary": {
+      "type": "string",
+      "title": {
+        "ru": "USB-порт",
+        "en": "USB port"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/port/assets/usbc.svg"
+    },
+    "anker_port_select": {
+      "type": "enum",
+      "title": {
+        "ru": "Выбрать порт",
+        "en": "Select port"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "icon": "/drivers/port/assets/usbc.svg",
+      "values": [
+        {
+          "id": "C1",
+          "title": {
+            "ru": "C1",
+            "en": "C1"
+          }
+        },
+        {
+          "id": "C2",
+          "title": {
+            "ru": "C2",
+            "en": "C2"
+          }
+        },
+        {
+          "id": "C3",
+          "title": {
+            "ru": "C3",
+            "en": "C3"
+          }
+        },
+        {
+          "id": "C4",
+          "title": {
+            "ru": "C4",
+            "en": "C4"
+          }
+        },
+        {
+          "id": "A1",
+          "title": {
+            "ru": "A1",
+            "en": "A1"
+          }
+        },
+        {
+          "id": "A2",
+          "title": {
+            "ru": "A2",
+            "en": "A2"
+          }
+        }
+      ]
+    },
+    "anker_selected_label": {
+      "type": "string",
+      "title": {
+        "ru": "Выбранный порт",
+        "en": "Selected port"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "icon": "/drivers/port/assets/usbc.svg"
+    }
+  },
+  "flow": {
+    "actions": [
+      {
+        "id": "anker_power",
+        "title": {
+          "en": "Set port power",
+          "ru": "Установить питание порта"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "port",
+            "type": "dropdown",
+            "title": {
+              "en": "USB",
+              "ru": "USB"
+            },
+            "values": [
+              {
+                "id": "C1",
+                "title": {
+                  "en": "C1",
+                  "ru": "C1"
+                }
+              },
+              {
+                "id": "C2",
+                "title": {
+                  "en": "C2",
+                  "ru": "C2"
+                }
+              },
+              {
+                "id": "C3",
+                "title": {
+                  "en": "C3",
+                  "ru": "C3"
+                }
+              },
+              {
+                "id": "C4",
+                "title": {
+                  "en": "C4",
+                  "ru": "C4"
+                }
+              },
+              {
+                "id": "A",
+                "title": {
+                  "en": "A1 + A2",
+                  "ru": "A1 + A2"
+                }
+              }
+            ]
+          },
+          {
+            "name": "on",
+            "type": "checkbox",
+            "title": {
+              "en": "On",
+              "ru": "Включить"
+            }
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set port power · [[port]] · [[on]]",
+          "ru": "Установить питание порта · [[port]] · [[on]]"
+        }
+      },
+      {
+        "id": "anker_timer",
+        "title": {
+          "en": "Set off timer",
+          "ru": "Установить таймер отключения"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "port",
+            "type": "dropdown",
+            "title": {
+              "en": "USB",
+              "ru": "USB"
+            },
+            "values": [
+              {
+                "id": "C1",
+                "title": {
+                  "en": "C1",
+                  "ru": "C1"
+                }
+              },
+              {
+                "id": "C2",
+                "title": {
+                  "en": "C2",
+                  "ru": "C2"
+                }
+              },
+              {
+                "id": "C3",
+                "title": {
+                  "en": "C3",
+                  "ru": "C3"
+                }
+              },
+              {
+                "id": "C4",
+                "title": {
+                  "en": "C4",
+                  "ru": "C4"
+                }
+              },
+              {
+                "id": "A",
+                "title": {
+                  "en": "A1 + A2",
+                  "ru": "A1 + A2"
+                }
+              }
+            ]
+          },
+          {
+            "name": "minutes",
+            "type": "number",
+            "title": {
+              "en": "Minutes (0 = cancel)",
+              "ru": "Минуты (0 = отмена)"
+            },
+            "min": 0,
+            "max": 1435,
+            "step": 5
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set off timer · [[port]] · [[minutes]]",
+          "ru": "Установить таймер отключения · [[port]] · [[minutes]]"
+        }
+      },
+      {
+        "id": "anker_mode",
+        "title": {
+          "en": "Set charging mode",
+          "ru": "Установить режим"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Mode",
+              "ru": "Режим"
+            },
+            "values": [
+              {
+                "id": "1",
+                "title": {
+                  "en": "AI Power",
+                  "ru": "AI Power"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "Connection priority",
+                  "ru": "Приоритет подключения"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "Dual laptop",
+                  "ru": "Два ноутбука"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "Low power",
+                  "ru": "Малая мощность"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set charging mode · [[value]]",
+          "ru": "Установить режим · [[value]]"
+        }
+      },
+      {
+        "id": "anker_brightness",
+        "title": {
+          "en": "Set display brightness",
+          "ru": "Установить яркость экрана"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Percent",
+              "ru": "Проценты"
+            },
+            "min": 20,
+            "max": 100,
+            "step": 5
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set display brightness · [[value]]",
+          "ru": "Установить яркость экрана · [[value]]"
+        }
+      },
+      {
+        "id": "anker_timeout",
+        "title": {
+          "en": "Set display timeout",
+          "ru": "Установить время экрана"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Timeout",
+              "ru": "Timeout"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Never",
+                  "ru": "Никогда"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "30 seconds",
+                  "ru": "30 секунд"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "1 minute",
+                  "ru": "1 минута"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "5 minutes",
+                  "ru": "5 минут"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "30 minutes",
+                  "ru": "30 минут"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set display timeout · [[value]]",
+          "ru": "Установить время экрана · [[value]]"
+        }
+      },
+      {
+        "id": "anker_clock",
+        "title": {
+          "en": "Set clock format",
+          "ru": "Установить формат часов"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Format",
+              "ru": "Формат"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "12 h",
+                  "ru": "12 ч"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "24 h",
+                  "ru": "24 ч"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set clock format · [[value]]",
+          "ru": "Установить формат часов · [[value]]"
+        }
+      },
+      {
+        "id": "anker_knob",
+        "title": {
+          "en": "Set knob direction",
+          "ru": "Установить направление регулятора"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Direction",
+              "ru": "Направление"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "Forward",
+                  "ru": "Прямое"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "Backward",
+                  "ru": "Обратное"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set knob direction · [[value]]",
+          "ru": "Установить направление регулятора · [[value]]"
+        }
+      },
+      {
+        "id": "anker_priority",
+        "title": {
+          "en": "Set port priority",
+          "ru": "Установить приоритет портов"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "title": {
+              "en": "Ports",
+              "ru": "Порты"
+            },
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "—",
+                  "ru": "—"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "en": "C1",
+                  "ru": "C1"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "en": "C2",
+                  "ru": "C2"
+                }
+              },
+              {
+                "id": "3",
+                "title": {
+                  "en": "C1 + C2",
+                  "ru": "C1 + C2"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "en": "C3",
+                  "ru": "C3"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "C1 + C3",
+                  "ru": "C1 + C3"
+                }
+              },
+              {
+                "id": "6",
+                "title": {
+                  "en": "C2 + C3",
+                  "ru": "C2 + C3"
+                }
+              },
+              {
+                "id": "8",
+                "title": {
+                  "en": "C4",
+                  "ru": "C4"
+                }
+              },
+              {
+                "id": "9",
+                "title": {
+                  "en": "C1 + C4",
+                  "ru": "C1 + C4"
+                }
+              },
+              {
+                "id": "10",
+                "title": {
+                  "en": "C2 + C4",
+                  "ru": "C2 + C4"
+                }
+              },
+              {
+                "id": "12",
+                "title": {
+                  "en": "C3 + C4",
+                  "ru": "C3 + C4"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set port priority · [[value]]",
+          "ru": "Установить приоритет портов · [[value]]"
+        }
+      },
+      {
+        "id": "anker_schedule",
+        "title": {
+          "en": "Set a port schedule event",
+          "ru": "Настроить событие расписания порта"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "port",
+            "type": "dropdown",
+            "title": {
+              "en": "USB",
+              "ru": "USB"
+            },
+            "values": [
+              {
+                "id": "C1",
+                "title": {
+                  "en": "C1",
+                  "ru": "C1"
+                }
+              },
+              {
+                "id": "C2",
+                "title": {
+                  "en": "C2",
+                  "ru": "C2"
+                }
+              },
+              {
+                "id": "C3",
+                "title": {
+                  "en": "C3",
+                  "ru": "C3"
+                }
+              },
+              {
+                "id": "C4",
+                "title": {
+                  "en": "C4",
+                  "ru": "C4"
+                }
+              },
+              {
+                "id": "A",
+                "title": {
+                  "en": "A1 + A2",
+                  "ru": "A1 + A2"
+                }
+              }
+            ]
+          },
+          {
+            "name": "kind",
+            "type": "dropdown",
+            "title": {
+              "en": "Action",
+              "ru": "Действие"
+            },
+            "values": [
+              {
+                "id": "start",
+                "title": {
+                  "en": "Turn on",
+                  "ru": "Включить"
+                }
+              },
+              {
+                "id": "end",
+                "title": {
+                  "en": "Turn off",
+                  "ru": "Выключить"
+                }
+              }
+            ]
+          },
+          {
+            "name": "enabled",
+            "type": "checkbox",
+            "title": {
+              "en": "Enabled",
+              "ru": "Активно"
+            }
+          },
+          {
+            "name": "hour",
+            "type": "number",
+            "title": {
+              "en": "Hour",
+              "ru": "Час"
+            },
+            "min": 0,
+            "max": 23,
+            "step": 1
+          },
+          {
+            "name": "minute",
+            "type": "number",
+            "title": {
+              "en": "Minute",
+              "ru": "Минута"
+            },
+            "min": 0,
+            "max": 59,
+            "step": 1
+          },
+          {
+            "name": "weekdays",
+            "type": "dropdown",
+            "title": {
+              "ru": "Дни недели",
+              "en": "Days"
+            },
+            "values": [
+              {
+                "id": "127",
+                "title": {
+                  "ru": "Ежедневно",
+                  "en": "Every day"
+                }
+              },
+              {
+                "id": "31",
+                "title": {
+                  "ru": "По будням",
+                  "en": "Weekdays"
+                }
+              },
+              {
+                "id": "96",
+                "title": {
+                  "ru": "По выходным",
+                  "en": "Weekends"
+                }
+              },
+              {
+                "id": "1",
+                "title": {
+                  "ru": "Понедельник",
+                  "en": "Monday"
+                }
+              },
+              {
+                "id": "2",
+                "title": {
+                  "ru": "Вторник",
+                  "en": "Tuesday"
+                }
+              },
+              {
+                "id": "4",
+                "title": {
+                  "ru": "Среда",
+                  "en": "Wednesday"
+                }
+              },
+              {
+                "id": "8",
+                "title": {
+                  "ru": "Четверг",
+                  "en": "Thursday"
+                }
+              },
+              {
+                "id": "16",
+                "title": {
+                  "ru": "Пятница",
+                  "en": "Friday"
+                }
+              },
+              {
+                "id": "32",
+                "title": {
+                  "ru": "Суббота",
+                  "en": "Saturday"
+                }
+              },
+              {
+                "id": "64",
+                "title": {
+                  "ru": "Воскресенье",
+                  "en": "Sunday"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set a port schedule event · [[port]] · [[kind]] · [[enabled]] · [[hour]] · [[minute]] · [[weekdays]]",
+          "ru": "Настроить событие расписания порта · [[port]] · [[kind]] · [[enabled]] · [[hour]] · [[minute]] · [[weekdays]]"
+        }
+      }
+    ],
+    "conditions": [
+      {
+        "id": "anker_port_on",
+        "title": {
+          "en": "Port !{{is|is not}} on",
+          "ru": "Питание порта !{{включено|выключено}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          },
+          {
+            "name": "port",
+            "type": "dropdown",
+            "title": {
+              "en": "USB",
+              "ru": "USB"
+            },
+            "values": [
+              {
+                "id": "C1",
+                "title": {
+                  "en": "C1",
+                  "ru": "C1"
+                }
+              },
+              {
+                "id": "C2",
+                "title": {
+                  "en": "C2",
+                  "ru": "C2"
+                }
+              },
+              {
+                "id": "C3",
+                "title": {
+                  "en": "C3",
+                  "ru": "C3"
+                }
+              },
+              {
+                "id": "C4",
+                "title": {
+                  "en": "C4",
+                  "ru": "C4"
+                }
+              },
+              {
+                "id": "A",
+                "title": {
+                  "en": "A1 + A2",
+                  "ru": "A1 + A2"
+                }
+              }
+            ]
+          }
+        ],
+        "titleFormatted": {
+          "en": "Port !{{is|is not}} on · [[port]]",
+          "ru": "Питание порта !{{включено|выключено}} · [[port]]"
+        }
+      }
+    ],
+    "triggers": [
+      {
+        "id": "anker_port_changed",
+        "title": {
+          "en": "Port power changed",
+          "ru": "Питание порта изменилось"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "port",
+            "type": "string",
+            "title": {
+              "en": "Port",
+              "ru": "Порт"
+            }
+          },
+          {
+            "name": "on",
+            "type": "boolean",
+            "title": {
+              "en": "On",
+              "ru": "Включено"
+            }
+          }
+        ]
+      },
+      {
+        "id": "anker_mode_changed",
+        "title": {
+          "en": "Charging mode changed",
+          "ru": "Режим зарядки изменился"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "mode",
+            "type": "string",
+            "title": {
+              "en": "Mode",
+              "ru": "Режим"
+            }
+          }
+        ]
+      },
+      {
+        "id": "anker_connection_changed",
+        "title": {
+          "en": "Connection changed",
+          "ru": "Состояние связи изменилось"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=prime"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "online",
+            "type": "boolean",
+            "title": {
+              "en": "Online",
+              "ru": "На связи"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "widgets": {
+    "charger": {
+      "name": {
+        "en": "Anker Prime",
+        "ru": "Anker Prime"
+      },
+      "height": 510,
+      "api": {
+        "overview": {
+          "method": "GET",
+          "path": "/"
+        },
+        "control": {
+          "method": "POST",
+          "path": "/control"
+        }
+      },
+      "id": "charger",
+      "settings": []
+    }
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "thomluther",
+        "website": "https://github.com/thomluther/anker-solix-api"
+      }
+    ]
+  }
+}

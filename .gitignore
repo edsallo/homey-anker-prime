@@ -1,0 +1,13 @@
+node_modules/
+.homeybuild/
+dist/
+*.tgz
+*.tar.gz
+*.zip
+.env*
+.DS_Store
+*.log
+userdata/
+session*.json
+*.pem
+*.key

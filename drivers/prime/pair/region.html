@@ -1,0 +1,10 @@
+<form id="region-form" class="homey-form">
+  <h1 class="homey-title" data-i18n="pair.region">Регион аккаунта Anker</h1>
+  <p id="description" data-i18n="pair.description" class="homey-subtitle">Выберите регион и страну, указанные в Anker.</p>
+  <div class="homey-form-group"><label class="homey-form-label" for="region" data-i18n="pair.region_label">Регион / Region</label><select class="homey-form-select" id="region"><option value="eu">Europe</option><option value="com">Global</option></select></div>
+  <div class="homey-form-group"><label class="homey-form-label" for="country" data-i18n="pair.country">Код страны / Country code</label><input class="homey-form-input" id="country" value="DE" maxlength="2" pattern="[A-Za-z]{2}" required autocapitalize="characters"></div>
+  <button class="homey-button-primary-full" type="submit" data-i18n="pair.next">Далее / Next</button><p id="error" role="alert"></p>
+</form>
+<script>
+document.getElementById('region-form').onsubmit=async event=>{event.preventDefault();try{await Homey.emit('region',{region:document.getElementById('region').value,country:document.getElementById('country').value.toUpperCase()});await Homey.nextView();}catch(e){document.getElementById('error').textContent=e.message;}};
+</script>
