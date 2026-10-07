@@ -1,0 +1,16 @@
+[Unit]
+Description=Anker Prime LAN dashboard
+After=network-online.target nginx.service avahi.service
+Wants=network-online.target
+[Service]
+Type=simple
+User=nobody
+Group=nobody
+WorkingDirectory=/volume1/docker/anker-web
+ExecStart=/usr/local/bin/node /volume1/docker/anker-web/server.js
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+[Install]
+WantedBy=multi-user.target

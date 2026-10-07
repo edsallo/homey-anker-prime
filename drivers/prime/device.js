@@ -2,6 +2,7 @@
 const Homey=require('homey');
 module.exports=class PrimeDevice extends Homey.Device {
   async onInit(){
+    if(this.getData().port)await this.initPortFeatures();
     this.lastWrite=0;this.lastMode=null;this.updates=Promise.resolve();
     await this.setUnavailable(this.homey.__('connecting'));
     if(!this.getData().port&&!this.hasCapability('anker_mode_current'))await this.addCapability('anker_mode_current');
@@ -28,6 +29,7 @@ module.exports=class PrimeDevice extends Homey.Device {
     if(this.hasCapability('onoff'))this.registerCapabilityListener('onoff',on=>this.homey.app.control(this.getData().id,'power',{on}));
     if(this.hasCapability('anker_mode'))this.registerCapabilityListener('anker_mode',value=>this.homey.app.control(this.getData().id,'mode',{value:Number(value)}));
     this.homey.app.attach(this).catch(()=>this.setUnavailable(this.homey.__('repair')));
+    if(!this.getData().port)this.profilePoll=this.homey.setInterval(()=>{if(!this.applyingSettings)this.homey.app.refreshProfiles(this).catch(()=>{});},300000);
   }
   async showSelectedPort(settings=this.getSettings()){
     const port=this.selectedPort||'C1';const label=String(settings[`label_${port}`]||'').trim();
@@ -55,6 +57,7 @@ module.exports=class PrimeDevice extends Homey.Device {
       for(const [key,action] of [['display_timeout','timeout'],['clock_format','clock'],['knob_direction','knob'],['port_priority','priority']])if(changedKeys.includes(key))await this.homey.app.control(this.getData().id,action,{value:Number(newSettings[key])});
       if(schedule)await this.homey.app.control(this.getData().id,'clock_schedule',schedule);
       if(changedKeys.includes('clock_holiday'))await this.homey.app.control(this.getData().id,'clock_holiday',{enabled:newSettings.clock_holiday});
+      if(changedKeys.some(k=>k.startsWith('exp_')||k.startsWith('profile_')))await this.homey.app.profileSettings(this,newSettings,changedKeys);
       await this.showSelectedPort(newSettings);
     }finally{this.applyingSettings=false;}
   }
@@ -92,10 +95,11 @@ module.exports=class PrimeDevice extends Homey.Device {
     else if(s.settings.mode){
       const mode=s.settings.mode;
       await put('anker_mode_current',this.homey.__(`modes.${mode}`));
-      const selected=mode>=1&&mode<=4?String(mode):null;
+      const selected=mode>=1&&mode<=5?String(mode):null;
       if(this.getCapabilityValue('anker_mode')!==selected)await this.setCapabilityValue('anker_mode',selected);
     }
     if(!port){await this.showSelectedPort();await this.syncDisplaySettings(s);}
+    if(port)await this.updatePortFeatures(s);
     if(Date.now()-this.lastWrite<10000)return;this.lastWrite=Date.now();
     if(port==='A'){
       await put('measure_power.usb',s.ports.A1&&s.ports.A2?s.ports.A1.power+s.ports.A2.power:null);
@@ -110,8 +114,48 @@ module.exports=class PrimeDevice extends Homey.Device {
     }
   }
   async markOffline(){
+    if(this.energy)this.energy.last=null;
     if(!this.getData().port&&this.wasOnline===true)this.homey.flow.getDeviceTriggerCard('anker_connection_changed').trigger(this,{online:false}).catch(()=>{});
     this.wasOnline=false;if(!this.getData().port)await this.showSelectedPort();await this.setUnavailable(this.homey.__('offline'));
   }
+  async initPortFeatures(){
+    const port=this.getData().port;
+    const limit=port==='A'?'anker_limit_a':'anker_limit_watts';
+    for(const id of [limit,'anker_limit_active','meter_usb_energy','anker_energy_reset_at','anker_reset_energy'])if(!this.hasCapability(id))await this.addCapability(id);
+    if(port!=='A'){
+      const min=port==='C1'?5:15,max=port==='C1'?140:100;
+      await this.setCapabilityOptions(limit,{values:Array.from({length:(max-min)/5+1},(_,i)=>({id:String(min+i*5),title:{en:`${min+i*5} W`,ru:`${min+i*5} Вт`}}))});
+      if(this.hasCapability('anker_power_limit'))await this.removeCapability('anker_power_limit');
+    }
+    if(!this.hasCapability('measure_anker_limit'))await this.addCapability('measure_anker_limit');
+    this.energy=new (require('../../lib/energy'))(this.getStoreValue('usbEnergy'));
+    await this.setStoreValue('usbEnergy',this.energy.snapshot());await this.showEnergy();
+    this.registerMultipleCapabilityListener([limit],async values=>{const value=values[limit];if(value!==undefined)await this.homey.app.control(this.getData().id,'limit',{value:Number(value)});},700);
+    this.registerCapabilityListener('anker_reset_energy',()=>this.resetEnergy());
+  }
+  async showEnergy(){
+    await this.setCapabilityValue('meter_usb_energy',this.energy.value);
+    const locale=this.homey.__('language')==='ru'?'ru-RU':'en-GB';
+    const date=new Intl.DateTimeFormat(locale,{timeZone:this.homey.clock.getTimezone(),day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}).format(this.energy.resetAt);
+    if(this.getCapabilityValue('anker_energy_reset_at')!==date)await this.setCapabilityValue('anker_energy_reset_at',date);
+  }
+  async resetEnergy(){
+    this.updates=this.updates.catch(()=>{}).then(async()=>{const snapshot={wh:0,resetAt:Date.now()};await this.setStoreValue('usbEnergy',snapshot);this.energy.reset(snapshot.resetAt);await this.showEnergy();});return this.updates;
+  }
+  async updatePortFeatures(s){
+    const port=this.getData().port,index=['C1','C2','C3','C4','A'].indexOf(port)+2;
+    const id=port==='A'?'anker_limit_a':'anker_limit_watts';
+    const limit=s.settings.customProfile?.[index];const value=Number.isInteger(limit)?(port==='A'?([0,15,24].includes(limit)?String(limit):null):(limit%5===0&&limit>=(port==='C1'?5:15)&&limit<=(port==='C1'?140:100)?String(limit):null)):null;
+    if(this.getCapabilityValue(id)!==value)await this.setCapabilityValue(id,value);
+    if(this.getCapabilityValue('measure_anker_limit')!==limit&&Number.isInteger(limit))await this.setCapabilityValue('measure_anker_limit',limit);
+    const active=this.homey.__(s.settings.mode===5?'limit_active':'limit_inactive');
+    if(this.getCapabilityValue('anker_limit_active')!==active)await this.setCapabilityValue('anker_limit_active',active);
+    const ports=port==='A'?[s.ports.A1,s.ports.A2]:[s.ports[port]];
+    const valid=ports.every(v=>v&&Number.isFinite(v.power)&&Date.now()-v.updated<=30000);
+    if(this.energy.sample(valid?ports.reduce((sum,v)=>sum+v.power,0):NaN,valid?Math.min(...ports.map(v=>v.updated)):NaN)){
+      await this.setStoreValue('usbEnergy',this.energy.snapshot());await this.showEnergy();
+    }
+  }
+  async onUninit(){if(this.profilePoll)this.homey.clearInterval(this.profilePoll);if(this.profileRefreshTimer)this.homey.clearTimeout(this.profileRefreshTimer);await this.updates?.catch(()=>{});}
   async onDeleted(){await this.homey.app.detach(this);}
 };

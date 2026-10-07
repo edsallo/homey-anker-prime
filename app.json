@@ -1,6 +1,6 @@
 {
   "id": "com.ed.anker-prime",
-  "version": "0.1.8",
+  "version": "0.1.14",
   "compatibility": ">=13.5.0",
   "sdk": 3,
   "name": {
@@ -786,6 +786,267 @@
               "value": false
             }
           ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "ru": "Экспериментальные функции",
+            "en": "Experimental features"
+          },
+          "children": [
+            {
+              "id": "experimental_info",
+              "type": "label",
+              "label": {
+                "ru": "Общие настройки Anker",
+                "en": "Shared Anker settings"
+              },
+              "value": "",
+              "hint": {
+                "ru": "Эти параметры общие для вашего аккаунта Anker. Распознавание моделей недоступно при включённой максимальной совместимости.",
+                "en": "These settings are shared with your Anker account. Device identification requires Maximum Compatibility to be off."
+              }
+            },
+            {
+              "id": "exp_compatibility",
+              "type": "checkbox",
+              "label": {
+                "ru": "Максимальная совместимость",
+                "en": "Maximum Compatibility"
+              },
+              "value": false
+            },
+            {
+              "id": "exp_customEnabled",
+              "type": "checkbox",
+              "label": {
+                "ru": "Разрешить пользовательские профили",
+                "en": "Enable custom profiles"
+              },
+              "value": false
+            },
+            {
+              "id": "exp_identification",
+              "type": "checkbox",
+              "label": {
+                "ru": "Распознавание устройства",
+                "en": "Charging device identification"
+              },
+              "value": false
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "ru": "Редактор профилей Anker",
+            "en": "Anker profile editor"
+          },
+          "children": [
+            {
+              "id": "profile_info",
+              "type": "label",
+              "label": {
+                "ru": "Профили в облаке Anker",
+                "en": "Anker cloud profiles"
+              },
+              "value": ""
+            },
+            {
+              "id": "profile_slot",
+              "type": "dropdown",
+              "label": {
+                "ru": "Слот профиля",
+                "en": "Profile slot"
+              },
+              "value": "1",
+              "values": [
+                {
+                  "id": "1",
+                  "label": {
+                    "ru": "Профиль 1",
+                    "en": "Profile 1"
+                  }
+                },
+                {
+                  "id": "2",
+                  "label": {
+                    "ru": "Профиль 2",
+                    "en": "Profile 2"
+                  }
+                },
+                {
+                  "id": "3",
+                  "label": {
+                    "ru": "Профиль 3",
+                    "en": "Profile 3"
+                  }
+                },
+                {
+                  "id": "4",
+                  "label": {
+                    "ru": "Профиль 4",
+                    "en": "Profile 4"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "profile_name",
+              "type": "text",
+              "label": {
+                "ru": "Название профиля",
+                "en": "Profile name"
+              },
+              "value": ""
+            },
+            {
+              "id": "profile_auto_exit",
+              "type": "checkbox",
+              "label": {
+                "ru": "Автоматический выход",
+                "en": "Auto exit"
+              },
+              "value": true
+            },
+            {
+              "id": "profile_C1",
+              "type": "number",
+              "label": {
+                "ru": "C1 · лимит, Вт",
+                "en": "C1 · limit, W"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 140,
+              "step": 5
+            },
+            {
+              "id": "profile_C2",
+              "type": "number",
+              "label": {
+                "ru": "C2 · лимит, Вт",
+                "en": "C2 · limit, W"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 5
+            },
+            {
+              "id": "profile_C3",
+              "type": "number",
+              "label": {
+                "ru": "C3 · лимит, Вт",
+                "en": "C3 · limit, W"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 5
+            },
+            {
+              "id": "profile_C4",
+              "type": "number",
+              "label": {
+                "ru": "C4 · лимит, Вт",
+                "en": "C4 · limit, W"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 100,
+              "step": 5
+            },
+            {
+              "id": "profile_A",
+              "type": "dropdown",
+              "label": {
+                "ru": "A1 + A2 · общий лимит",
+                "en": "A1 + A2 · shared limit"
+              },
+              "value": "0",
+              "values": [
+                {
+                  "id": "0",
+                  "label": {
+                    "ru": "0 Вт",
+                    "en": "0 W"
+                  }
+                },
+                {
+                  "id": "15",
+                  "label": {
+                    "ru": "15 Вт",
+                    "en": "15 W"
+                  }
+                },
+                {
+                  "id": "24",
+                  "label": {
+                    "ru": "24 Вт",
+                    "en": "24 W"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "profile_action",
+              "type": "dropdown",
+              "label": {
+                "ru": "Действие после «Сохранить»",
+                "en": "Action when saving settings"
+              },
+              "value": "none",
+              "values": [
+                {
+                  "id": "none",
+                  "label": {
+                    "ru": "Только редактировать поля",
+                    "en": "Edit fields only"
+                  }
+                },
+                {
+                  "id": "load",
+                  "label": {
+                    "ru": "Загрузить выбранный профиль",
+                    "en": "Load selected profile"
+                  }
+                },
+                {
+                  "id": "save",
+                  "label": {
+                    "ru": "Сохранить профиль в Anker",
+                    "en": "Save profile to Anker"
+                  }
+                },
+                {
+                  "id": "apply",
+                  "label": {
+                    "ru": "Применить сохранённый профиль",
+                    "en": "Apply saved profile"
+                  }
+                },
+                {
+                  "id": "delete",
+                  "label": {
+                    "ru": "Удалить выбранный профиль",
+                    "en": "Delete selected profile"
+                  }
+                },
+                {
+                  "id": "refresh",
+                  "label": {
+                    "ru": "Обновить из Anker",
+                    "en": "Refresh from Anker"
+                  }
+                }
+              ],
+              "hint": {
+                "ru": "Выберите слот и «Загрузить», сохраните и заново откройте настройки. Затем измените поля и выберите «Сохранить профиль». Только «Применить» переключает зарядку. Удаление необратимо. Сумма лимитов до 250 Вт; протоколы сохраняются.",
+                "en": "Choose a slot and Load, save settings, then reopen settings. Edit fields and choose Save profile. Only Apply switches charging mode. Delete is irreversible. Total limits up to 250 W; protocols are preserved."
+              }
+            }
+          ]
         }
       ]
     },
@@ -874,6 +1135,13 @@
           "title": {
             "en": "Low power",
             "ru": "Малая мощность"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Custom",
+            "ru": "Пользовательский"
           }
         }
       ]
@@ -965,6 +1233,336 @@
       "setable": false,
       "uiComponent": "sensor",
       "icon": "/drivers/port/assets/usbc.svg"
+    },
+    "anker_power_limit": {
+      "title": {
+        "en": "Power limit",
+        "ru": "Лимит мощности"
+      },
+      "type": "number",
+      "uiComponent": "slider",
+      "getable": true,
+      "setable": true,
+      "min": 5,
+      "max": 140,
+      "step": 1,
+      "decimals": 0,
+      "units": {
+        "en": "W",
+        "ru": "Вт"
+      },
+      "icon": "/assets/limit.svg"
+    },
+    "anker_limit_a": {
+      "title": {
+        "en": "A1 + A2 power limit",
+        "ru": "Лимит A1 + A2"
+      },
+      "type": "enum",
+      "uiComponent": "picker",
+      "getable": true,
+      "setable": true,
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "0 W",
+            "ru": "0 Вт"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "15 W",
+            "ru": "15 Вт"
+          }
+        },
+        {
+          "id": "24",
+          "title": {
+            "en": "24 W",
+            "ru": "24 Вт"
+          }
+        }
+      ],
+      "icon": "/assets/limit.svg"
+    },
+    "anker_limit_active": {
+      "title": {
+        "en": "Manual limits",
+        "ru": "Ручные лимиты"
+      },
+      "type": "string",
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/limit.svg"
+    },
+    "meter_usb_energy": {
+      "title": {
+        "en": "Delivered energy",
+        "ru": "Отданная энергия"
+      },
+      "type": "number",
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "min": 0,
+      "decimals": 2,
+      "units": {
+        "en": "Wh",
+        "ru": "Вт·ч"
+      },
+      "icon": "/assets/energy.svg"
+    },
+    "anker_energy_reset_at": {
+      "title": {
+        "en": "Last reset",
+        "ru": "Последний сброс"
+      },
+      "type": "string",
+      "uiComponent": "sensor",
+      "getable": true,
+      "setable": false,
+      "icon": "/assets/reset.svg"
+    },
+    "anker_reset_energy": {
+      "title": {
+        "en": "Reset energy counter",
+        "ru": "Сбросить счётчик"
+      },
+      "type": "boolean",
+      "uiComponent": "button",
+      "getable": false,
+      "setable": true,
+      "icon": "/assets/reset.svg"
+    },
+    "anker_limit_watts": {
+      "type": "enum",
+      "title": {
+        "en": "Power limit",
+        "ru": "Лимит мощности"
+      },
+      "getable": true,
+      "setable": true,
+      "uiComponent": "picker",
+      "icon": "/assets/limit.svg",
+      "values": [
+        {
+          "id": "5",
+          "title": {
+            "en": "5 W",
+            "ru": "5 Вт"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "10 W",
+            "ru": "10 Вт"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "15 W",
+            "ru": "15 Вт"
+          }
+        },
+        {
+          "id": "20",
+          "title": {
+            "en": "20 W",
+            "ru": "20 Вт"
+          }
+        },
+        {
+          "id": "25",
+          "title": {
+            "en": "25 W",
+            "ru": "25 Вт"
+          }
+        },
+        {
+          "id": "30",
+          "title": {
+            "en": "30 W",
+            "ru": "30 Вт"
+          }
+        },
+        {
+          "id": "35",
+          "title": {
+            "en": "35 W",
+            "ru": "35 Вт"
+          }
+        },
+        {
+          "id": "40",
+          "title": {
+            "en": "40 W",
+            "ru": "40 Вт"
+          }
+        },
+        {
+          "id": "45",
+          "title": {
+            "en": "45 W",
+            "ru": "45 Вт"
+          }
+        },
+        {
+          "id": "50",
+          "title": {
+            "en": "50 W",
+            "ru": "50 Вт"
+          }
+        },
+        {
+          "id": "55",
+          "title": {
+            "en": "55 W",
+            "ru": "55 Вт"
+          }
+        },
+        {
+          "id": "60",
+          "title": {
+            "en": "60 W",
+            "ru": "60 Вт"
+          }
+        },
+        {
+          "id": "65",
+          "title": {
+            "en": "65 W",
+            "ru": "65 Вт"
+          }
+        },
+        {
+          "id": "70",
+          "title": {
+            "en": "70 W",
+            "ru": "70 Вт"
+          }
+        },
+        {
+          "id": "75",
+          "title": {
+            "en": "75 W",
+            "ru": "75 Вт"
+          }
+        },
+        {
+          "id": "80",
+          "title": {
+            "en": "80 W",
+            "ru": "80 Вт"
+          }
+        },
+        {
+          "id": "85",
+          "title": {
+            "en": "85 W",
+            "ru": "85 Вт"
+          }
+        },
+        {
+          "id": "90",
+          "title": {
+            "en": "90 W",
+            "ru": "90 Вт"
+          }
+        },
+        {
+          "id": "95",
+          "title": {
+            "en": "95 W",
+            "ru": "95 Вт"
+          }
+        },
+        {
+          "id": "100",
+          "title": {
+            "en": "100 W",
+            "ru": "100 Вт"
+          }
+        },
+        {
+          "id": "105",
+          "title": {
+            "en": "105 W",
+            "ru": "105 Вт"
+          }
+        },
+        {
+          "id": "110",
+          "title": {
+            "en": "110 W",
+            "ru": "110 Вт"
+          }
+        },
+        {
+          "id": "115",
+          "title": {
+            "en": "115 W",
+            "ru": "115 Вт"
+          }
+        },
+        {
+          "id": "120",
+          "title": {
+            "en": "120 W",
+            "ru": "120 Вт"
+          }
+        },
+        {
+          "id": "125",
+          "title": {
+            "en": "125 W",
+            "ru": "125 Вт"
+          }
+        },
+        {
+          "id": "130",
+          "title": {
+            "en": "130 W",
+            "ru": "130 Вт"
+          }
+        },
+        {
+          "id": "135",
+          "title": {
+            "en": "135 W",
+            "ru": "135 Вт"
+          }
+        },
+        {
+          "id": "140",
+          "title": {
+            "en": "140 W",
+            "ru": "140 Вт"
+          }
+        }
+      ]
+    },
+    "measure_anker_limit": {
+      "type": "number",
+      "title": {
+        "en": "Power limit",
+        "ru": "Лимит мощности"
+      },
+      "getable": true,
+      "setable": false,
+      "uiComponent": "sensor",
+      "units": {
+        "en": "W",
+        "ru": "Вт"
+      },
+      "decimals": 0,
+      "min": 0,
+      "max": 140,
+      "icon": "/assets/limit.svg"
     }
   },
   "flow": {
@@ -1160,6 +1758,13 @@
                 "title": {
                   "en": "Low power",
                   "ru": "Малая мощность"
+                }
+              },
+              {
+                "id": "5",
+                "title": {
+                  "en": "Custom",
+                  "ru": "Пользовательский"
                 }
               }
             ]
@@ -1647,6 +2252,94 @@
           "en": "Set a port schedule event · [[port]] · [[kind]] · [[enabled]] · [[hour]] · [[minute]] · [[weekdays]]",
           "ru": "Настроить событие расписания порта · [[port]] · [[kind]] · [[enabled]] · [[hour]] · [[minute]] · [[weekdays]]"
         }
+      },
+      {
+        "id": "anker_limit",
+        "title": {
+          "en": "Set power limit",
+          "ru": "Установить лимит мощности"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=port&capabilities=anker_limit_watts"
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Watts",
+              "ru": "Ватты"
+            },
+            "min": 5,
+            "max": 140,
+            "step": 5
+          }
+        ],
+        "titleFormatted": {
+          "en": "Set power limit [[value]] W",
+          "ru": "Установить лимит мощности [[value]] Вт"
+        },
+        "hint": {
+          "en": "USB-C: multiples of 5 W. A1 + A2: 0, 15 or 24 W.",
+          "ru": "USB-C: шаг 5 Вт. A1 + A2: 0, 15 или 24 Вт."
+        }
+      },
+      {
+        "id": "anker_energy_reset",
+        "title": {
+          "en": "Reset energy counter",
+          "ru": "Сбросить счётчик энергии"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=port"
+          }
+        ]
+      },
+      {
+        "id": "anker_limit_a",
+        "title": {
+          "en": "Set A1 + A2 power limit",
+          "ru": "Установить лимит A1 + A2"
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=port&capabilities=anker_limit_a"
+          },
+          {
+            "name": "value",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "0",
+                "title": {
+                  "en": "0 W",
+                  "ru": "0 Вт"
+                }
+              },
+              {
+                "id": "15",
+                "title": {
+                  "en": "15 W",
+                  "ru": "15 Вт"
+                }
+              },
+              {
+                "id": "24",
+                "title": {
+                  "en": "24 W",
+                  "ru": "24 Вт"
+                }
+              }
+            ]
+          }
+        ]
       }
     ],
     "conditions": [
@@ -1712,6 +2405,48 @@
           "en": "Port !{{is|is not}} on · [[port]]",
           "ru": "Питание порта !{{включено|выключено}} · [[port]]"
         }
+      },
+      {
+        "id": "anker_energy_above",
+        "title": {
+          "en": "Delivered energy !{{is|is not}} above",
+          "ru": "Отданная энергия !{{больше|не больше}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=port"
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "title": {
+              "en": "Wh",
+              "ru": "Вт·ч"
+            },
+            "min": 0,
+            "step": 0.01
+          }
+        ],
+        "titleFormatted": {
+          "en": "Delivered energy !{{is|is not}} above [[value]] Wh",
+          "ru": "Отданная энергия !{{больше|не больше}} [[value]] Вт·ч"
+        }
+      },
+      {
+        "id": "anker_limits_active",
+        "title": {
+          "en": "Manual limits !{{are|are not}} active",
+          "ru": "Ручные лимиты !{{активны|не активны}}"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=port"
+          }
+        ]
       }
     ],
     "triggers": [
@@ -1825,5 +2560,15 @@
         "website": "https://github.com/thomluther/anker-solix-api"
       }
     ]
+  },
+  "api": {
+    "webOverview": {
+      "method": "GET",
+      "path": "/web"
+    },
+    "webControl": {
+      "method": "POST",
+      "path": "/web/control"
+    }
   }
 }

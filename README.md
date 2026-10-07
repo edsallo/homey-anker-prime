@@ -136,3 +136,23 @@ npm run build:check
 For bugs, [open an issue](https://github.com/edsallo/homey-anker-prime/issues) with app/Homey/charger versions, expected behavior and reproduction steps. Remove account details, serial numbers, passwords, tokens and certificates from attachments. English and Russian reports are welcome. Tested installation platform: macOS; Windows instructions use portable Node/npm commands but have not yet been tested on a physical Windows machine.
 
 MIT for application code; see [LICENSE](LICENSE) and [THIRD_PARTY.md](THIRD_PARTY.md). Protocol research credits: [thomluther/anker-solix-api](https://github.com/thomluther/anker-solix-api). Anker branding/product photos remain their owners' property. This project is not affiliated with or endorsed by Anker or Athom.
+
+## 0.1.9 — port limits and delivered energy
+
+Existing and new port devices automatically gain a native power-limit control, manual-limit status, delivered energy (Wh), last reset date and a separate reset button on the native buttons screen.
+
+C1: 5–140 W; C2–C4: 15–100 W, integer steps. A1 + A2 share a 0/15/24 W selector. Changing a limit activates the charger's global custom mode. Return to AI Power from the main device to stop applying manual budgets. Controls retain saved budgets when manual limits are inactive. Other budgets and protocol flags are preserved; over 250 W is rejected with the available budget. Mode changes may briefly interrupt charging. Only C1 at 5/6/10/14/15/16/17/30 W has been tested with a real consumer; other ports await electronic-load testing. C1 values below 15 W are experimental.
+
+Energy is calculated from USB output-power samples using trapezoidal integration, persisted in the Homey device store, and starts when the device is upgraded/added. Gaps over 30 seconds, connection loss and downtime are not extrapolated, so totals may be incomplete. This is USB output energy, not wall consumption or a hardware energy register. Reset affects only that device's counter (the sum for the A pair), updates its reset date and leaves Insights history intact.
+
+Flow actions: set the power limit with exact numeric input; reset energy. Conditions: delivered energy above a threshold; manual limits active. Controls are not duplicated in advanced settings.
+
+## 0.1.10 — numeric picker and automatic allocation
+
+Replaces the slider with a watt-value picker and adds the saved limit to sensor readings. When the total exceeds 250 W, the selected port gets its requested budget; the largest other USB-C allocations are reduced one watt at a time, never below 15 W. Existing lower/zero allocations are not raised. USB-A's discrete budget is preserved when adjusting USB-C. Lowering a limit does not automatically increase other ports. The complete profile is confirmed and reflected on all port cards. This supersedes 0.1.9's over-budget rejection behavior.
+
+## 0.1.11
+
+USB-C picker and Flow use 5 W steps; automatic reductions use multiples of 5 W. A1 + A2 retains 0/15/24 W with a separate Flow action. Existing off-step limits are shown exactly in sensor readings; the picker is empty until a new value is selected. Updating does not change charger budgets.
+
+[Native Homey profile editor and experimental settings](docs/PROFILES.en.md).

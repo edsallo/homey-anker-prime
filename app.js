@@ -21,6 +21,11 @@ module.exports = class AnkerApp extends Homey.App {
         const {device,...params}=args; if(action==='schedule')params.weekdays=Number(params.weekdays); if(['mode','timeout','clock','knob','priority'].includes(action))params.value=Number(params.value); await this.control(device.getData().id,action,params); return true;
       });
     }
+    this.homey.flow.getActionCard('anker_limit').registerRunListener(async({device,value})=>{await this.control(device.getData().id,'limit',{value});return true;});
+    this.homey.flow.getActionCard('anker_limit_a').registerRunListener(async({device,value})=>{await this.control(device.getData().id,'limit',{value:Number(value)});return true;});
+    this.homey.flow.getActionCard('anker_energy_reset').registerRunListener(async({device})=>{await device.resetEnergy();return true;});
+    this.homey.flow.getConditionCard('anker_energy_above').registerRunListener(async({device,value})=>device.getCapabilityValue('meter_usb_energy')>value);
+    this.homey.flow.getConditionCard('anker_limits_active').registerRunListener(async({device})=>{const s=this.snapshot(device);if(s.stale)throw new Error(this.homey.__('offline'));return s.settings.mode===5;});
     this.homey.flow.getConditionCard('anker_port_on').registerRunListener(async ({device,port}) => {
       const snapshot=this.snapshot(device); if(snapshot.stale) throw new Error(this.homey.__('offline')); return snapshot.groups[port]?.on === true;
     });
@@ -53,6 +58,7 @@ module.exports = class AnkerApp extends Homey.App {
   async attach(device) {
     await this.ready; this.devices.add(device); const id=device.getStoreValue('account'); await this.commit(id); await this.connectAccount(id);
     const state=this.accounts.get(id).connection?.states.get(device.getData().sn); if(state) await device.updateState(state);
+    if(!device.getData().port)await this.refreshProfiles(device,true).catch(()=>device.error('Unable to load Anker profiles'));
   }
   async detach(device) {
     this.devices.delete(device); const id=device.getStoreValue('account');
@@ -65,7 +71,7 @@ module.exports = class AnkerApp extends Homey.App {
     a.retryAt=Date.now()+60000;
     const promise=(async()=>{
       if(a.connection) await a.connection.close();
-      a.cloud=new Cloud(a.credentials,a.session); const devices=await a.cloud.devices(); const info=await a.cloud.mqttInfo();
+      a.cloud=new Cloud(a.credentials,a.session); a.experimental=new (require('./lib/experimental').Experimental)(a.cloud); const devices=await a.cloud.devices(); const info=await a.cloud.mqttInfo();
       await this.saveVault();
       const connection=new Connection(info,devices); a.connection=connection; a.connectedAt=Date.now();
       connection.on('state',(sn,state)=>{ for(const d of this.devices) if(d.getStoreValue('account')===id && d.getData().sn===sn) d.updateState(state).catch(()=>{}); });
@@ -90,7 +96,58 @@ module.exports = class AnkerApp extends Homey.App {
     const device=[...this.devices].find(d=>d.getData().id===deviceId);if(!device)throw new Error('Unknown device');
     const a=this.accounts.get(device.getStoreValue('account'));if(!a?.connection)throw new Error(this.homey.__('offline'));
     try{return await a.connection.control(device.getData().sn,action,{...args,...(device.getData().port?{port:device.getData().port}:{})});}
-    catch(e){throw new Error(this.homey.__('command_failed'));}
+    catch(e){
+      if(e.code==='LIMIT_BUDGET')throw new Error(this.homey.__('limit_budget').replace('{watts}',String(e.available)));
+      if(e.code==='LIMIT_RANGE')throw new Error(this.homey.__('limit_range'));
+      if(e.code==='PROFILE_MISSING')throw new Error(this.homey.__('profile_missing'));
+      throw new Error(this.homey.__('command_failed'));
+    }
+  }
+  async refreshProfiles(device,load=false){
+    const a=this.accounts.get(device.getStoreValue('account'));if(!a?.experimental)throw new Error(this.homey.__('offline'));
+    const data=await a.experimental.refresh(device.getData().sn);await this.saveVault();
+    if(!device.getStoreValue('profilesBeforeUpgrade'))await device.setStoreValue('profilesBeforeUpgrade',data);
+    const patch={experimental_info:this.homey.__('profile_shared'),profile_info:data.profiles.map(p=>`${p.number}: ${p.name} (${p.total_power} W)`).join(' · ')||this.homey.__('profile_empty'),...Object.fromEntries(['compatibility','customEnabled','identification'].map(k=>['exp_'+k,data[k]]))};
+    if(load){const selected=data.profiles.find(p=>p.number===Number(device.getSetting('profile_slot')||1));Object.assign(patch,require('./lib/profile-editor').fields(selected,this.snapshot(device).settings));}
+    await device.setSettings(patch);return data;
+  }
+  async webExperimentalControl(device,action,args){
+    const a=this.accounts.get(device.getStoreValue('account'));if(!a?.experimental)throw new Error(this.homey.__('offline'));
+    const previous=a.profileQueue||Promise.resolve();
+    const job=previous.catch(()=>{}).then(async()=>{
+      if(action!=='experimental_refresh')await a.experimental.control(device.getData().sn,action,args,this.snapshot(device).settings,a.connection);
+      await this.refreshProfiles(device);return {ok:true};
+    });a.profileQueue=job;return job;
+  }
+  async profileSettings(device,settings,changed){
+    const a=this.accounts.get(device.getStoreValue('account'));if(!a?.experimental)throw new Error(this.homey.__('offline'));
+    const sn=device.getData().sn;
+    // Serialize native settings callbacks with other profile/cloud writes.
+    const previous=a.profileQueue||Promise.resolve();
+    const job=previous.catch(()=>{}).then(async()=>{
+      for(const key of ['compatibility','customEnabled','identification'])if(changed.includes('exp_'+key))await a.experimental.control(sn,'experimental',{setting:key,enabled:settings['exp_'+key]},null,a.connection);
+      const action=changed.includes('profile_action')?settings.profile_action:'none';
+      let data=await a.experimental.refresh(sn);const original=data.profiles.find(p=>p.number===Number(settings.profile_slot));
+      if(action==='save'){
+        const value=require('./lib/profile-editor').draft(settings,original,this.snapshot(device).settings);
+        if(original)value.id=original.id;else {delete value.id;value.device_sn=sn;}
+        await a.cloud.request('mini_power/v1/app/charging/'+(original?'update_charging_mode':'add_charging_mode'),value);
+        data=await a.experimental.refresh(sn);
+        const saved=data.profiles.find(p=>p.number===value.number);
+        if(!saved||saved.name!==value.name||JSON.stringify(require('./lib/experimental').wire(saved))!==JSON.stringify(require('./lib/experimental').wire(value)))throw Error('Anker не подтвердил сохранение профиля.');
+      }else if(action==='apply'||action==='delete'){
+        if(!original)throw Error('Выбранный слот пуст.');
+        await a.experimental.control(sn,action==='apply'?'profile_apply':'profile_delete',{id:original.id},null,a.connection);
+      }
+      await this.saveVault();
+      // Homey commits newSettings after onSettings resolves. Refresh afterwards,
+      // without overwriting a user's unsaved editor draft during normal telemetry.
+      if(device.profileRefreshTimer)this.homey.clearTimeout(device.profileRefreshTimer);
+      device.profileRefreshTimer=this.homey.setTimeout(async()=>{try{
+        await device.setSettings({profile_slot:settings.profile_slot,profile_action:'none'});
+        await this.refreshProfiles(device,['load','delete'].includes(action));
+      }catch{device.error('Unable to refresh Anker profile settings');}},1000);
+    });a.profileQueue=job;return job;
   }
   async onUninit(){this.homey.clearInterval(this.health);await Promise.all([...this.accounts.values()].map(a=>a.connection?.close()));}
 };

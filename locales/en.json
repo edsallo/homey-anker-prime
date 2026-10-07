@@ -18,9 +18,16 @@
     "2": "Connection priority",
     "3": "Dual laptop",
     "4": "Low power",
-    "5": "Anker custom profile"
+    "5": "Custom"
   },
   "port_off": "Power off",
   "brightness_range": "Brightness: 20–100%, in steps of 5%.",
-  "time_format": "Enter HH:MM, for example 22:30."
+  "time_format": "Enter HH:MM, for example 22:30.",
+  "limit_active": "Active",
+  "limit_inactive": "Inactive",
+  "limit_budget": "Available: {watts} W. Reduce other port limits first.",
+  "limit_range": "C1: 5–140 W; C2–C4: 15–100 W; A1 + A2: 0, 15 or 24 W. USB-C: 5 W steps.",
+  "profile_missing": "Full charging profile unavailable. Wait for fresh data.",
+  "profile_shared": "Shared with Anker. Identification requires Maximum Compatibility off.",
+  "profile_empty": "No saved profiles"
 }
