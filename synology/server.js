@@ -1,6 +1,8 @@
 'use strict';
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 function createServer(config,history){
+ const identity=require('./lib/identity'),identityFile=path.join(config.historyDir||path.join(__dirname,'data'),'identity-models-user.json');let custom={};try{custom=JSON.parse(fs.readFileSync(identityFile,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
+ const save=()=>{fs.mkdirSync(path.dirname(identityFile),{recursive:true});fs.writeFileSync(identityFile+'.tmp',JSON.stringify(custom),{mode:0o600});fs.renameSync(identityFile+'.tmp',identityFile);};
  const origins=new Set(config.origins),hostnames=new Set([...origins].map(x=>new URL(x).host));
  const files={'/history':['history.html','text/html; charset=utf-8'],'/history.js':['history.js','text/javascript; charset=utf-8'],'/history.css':['history.css','text/css; charset=utf-8'],'/':['index.html','text/html; charset=utf-8'],'/app.js':['app.js','text/javascript; charset=utf-8'],'/style.css':['style.css','text/css; charset=utf-8']};
  return http.createServer(async(req,res)=>{
@@ -17,11 +19,13 @@ function createServer(config,history){
   if(req.method==='POST'&&(!origins.has(req.headers.origin)||req.headers['x-anker-request']!=='1'||!req.headers['content-type']?.startsWith('application/json')))return send(403,{error:'Request denied'});
   try{
    let body;if(req.method==='POST'){let raw='';for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>8192)return send(413,{error:'Request too large'});}try{body=JSON.stringify(JSON.parse(raw));}catch{return send(400,{error:'Invalid JSON'});}}
-   const upstream=await fetch(config.homey+'/api/app/com.ed.anker-prime/web'+(body?'/control':''),{method:req.method,headers:{Authorization:'Bearer '+config.token,'Content-Type':'application/json'},body,signal:AbortSignal.timeout(45000)});
+   const command=body?JSON.parse(body):null;const local=command?.action==='identity_model';
+   const upstream=await fetch(config.homey+'/api/app/com.ed.anker-prime/web'+(body&&!local?'/control':''),{method:local?'GET':req.method,headers:{Authorization:'Bearer '+config.token,'Content-Type':'application/json'},body:local?undefined:body,signal:AbortSignal.timeout(45000)});
    const data=await upstream.json();
    if(!upstream.ok)return send(upstream.status>=500?502:400,{error:typeof data.error==='string'?data.error:typeof data.message==='string'?data.message:'Homey отклонил команду'});
-   send(200,data);
-  }catch{send(502,{error:'Нет связи с Homey. Проверьте, что Homey и приложение Anker работают.'});}
+   if(local){const d=data.devices?.find(d=>d.id===command.id);if(!d)throw Error('Unknown device');const entry=identity.validate(d,command.args||{});custom[d.id]=custom[d.id]||{};custom[d.id][entry.key]=entry.value;save();return send(200,{ok:true});}
+   send(200,req.method==='GET'?identity.enrich(data,custom):data);
+  }catch(error){if(error.message?.includes('устройство')||error.message?.includes('название')||error.message?.includes('модель'))return send(400,{error:error.message});send(502,{error:'Нет связи с Homey. Проверьте, что Homey и приложение Anker работают.'});}
  });
 }
 if(require.main===module){const config=JSON.parse(fs.readFileSync(process.env.ANKER_CONFIG||path.join(__dirname,'config.json'),'utf8'));if(config.mdnsAddress)require('./mdns')(config.mdnsAddress);const history=new (require('./history').History)(config.historyDir||path.join(__dirname,'data')).start(config);createServer(config,history).listen(config.port||8787,config.bind||'127.0.0.1',()=>console.log('Anker dashboard ready'));}

@@ -1,6 +1,6 @@
 {
   "name": "com.ed.anker-prime",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "private": true,
   "description": "Anker Prime A2345 for Homey Pro",
   "main": "app.js",

@@ -57,3 +57,9 @@ Use **Profiles Anker** beside the charging mode to manage four cloud profiles. T
 Validation: 23 automatic tests passed. Live NAS→Homey→Anker verification created a temporary profile, changed C1 from 20 to 25 W and auto exit, then deleted it. Active charging mode and stored current limits remained unchanged. History queries passed. Browser verification covered the profile list/editor and experimental settings. Only public assets were replaced on NAS; existing config and history were preserved.
 
 Disconnected ports (inactive, zero voltage and zero power) display dashes for voltage/current. Raw telemetry and energy calculations remain unchanged.
+
+### Hybrid device identification
+
+Homey app 0.1.15 supplies A2345 BD/BE identity fields to the bridge. USB-C cards display manufacturer and model/series from the bundled Anker table, tested VID/PID mappings, or local user entries. **Уточнить / Указать модель** saves an entry for a valid VID/PID, shared across this charger's USB-C ports. Personal port names remain under Settings → Названия. Disconnected or stale devices do not display retained model names.
+
+Local model entries persist in `identity-models-user.json` in the configured history/data directory. Keep that file when upgrading. The NAS and autonomous dashboard databases are independent; edits are not synchronized or published. VID/PID identifies a product rather than an individual device.
