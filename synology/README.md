@@ -63,3 +63,9 @@ Disconnected ports (inactive, zero voltage and zero power) display dashes for vo
 Homey app 0.1.15 supplies A2345 BD/BE identity fields to the bridge. USB-C cards display manufacturer and model/series from the bundled Anker table, tested VID/PID mappings, or local user entries. **Уточнить / Указать модель** saves an entry for a valid VID/PID, shared across this charger's USB-C ports. Personal port names remain under Settings → Названия. Disconnected or stale devices do not display retained model names.
 
 Local model entries persist in `identity-models-user.json` in the configured history/data directory. Keep that file when upgrading. The NAS and autonomous dashboard databases are independent; edits are not synchronized or published. VID/PID identifies a product rather than an individual device.
+
+## Interface / Интерфейс
+
+Светлая тема Anker по умолчанию, компактные карточки портов и пять цветовых тем. Русский и английский язык выбираются по языку браузера; ручной выбор находится в настройках. Тема и язык сохраняются в этом браузере. Вт·ч и мА·ч имеют отдельные подсказки. Значки сайта включают PNG 32×32 и вариант для закреплённых вкладок Safari.
+
+Anker light is the default, with compact port cards and five color themes. Russian/English follows the browser language and can be overridden in Settings. Language and theme are saved per browser. Wh and mAh have separate tooltips. Site icons include a 32×32 PNG and a Safari pinned-tab variant.

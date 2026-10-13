@@ -4,7 +4,7 @@ function createServer(config,history){
  const identity=require('./lib/identity'),identityFile=path.join(config.historyDir||path.join(__dirname,'data'),'identity-models-user.json');let custom={};try{custom=JSON.parse(fs.readFileSync(identityFile,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
  const save=()=>{fs.mkdirSync(path.dirname(identityFile),{recursive:true});fs.writeFileSync(identityFile+'.tmp',JSON.stringify(custom),{mode:0o600});fs.renameSync(identityFile+'.tmp',identityFile);};
  const origins=new Set(config.origins),hostnames=new Set([...origins].map(x=>new URL(x).host));
- const files={'/history':['history.html','text/html; charset=utf-8'],'/history.js':['history.js','text/javascript; charset=utf-8'],'/history.css':['history.css','text/css; charset=utf-8'],'/':['index.html','text/html; charset=utf-8'],'/app.js':['app.js','text/javascript; charset=utf-8'],'/style.css':['style.css','text/css; charset=utf-8']};
+ const files={'/anker32.png':['anker32.png','image/png'],'/favicon.ico':['favicon.png','image/png'],'/apple-touch-icon.png':['favicon.png','image/png'],'/safari-pinned-tab.svg':['safari-pinned-tab.svg','image/svg+xml'],'/favicon.png':['favicon.png','image/png'],'/history':['history.html','text/html; charset=utf-8'],'/history.js':['history.js','text/javascript; charset=utf-8'],'/history.css':['history.css','text/css; charset=utf-8'],'/':['index.html','text/html; charset=utf-8'],'/app.js':['app.js','text/javascript; charset=utf-8'],'/style.css':['style.css','text/css; charset=utf-8']};
  return http.createServer(async(req,res)=>{
   const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json'});res.end(JSON.stringify(data));};
   res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');res.setHeader('Referrer-Policy','same-origin');res.setHeader('X-Frame-Options','DENY');
@@ -12,7 +12,7 @@ function createServer(config,history){
   if(!hostnames.has(req.headers.host))return send(403,{error:'Unknown host'});
   if(req.headers.origin&&!origins.has(req.headers.origin))return send(403,{error:'Origin denied'});
   const pathname=new URL(req.url,'http://localhost').pathname;
-  if(req.method==='GET'&&files[pathname]){const [file,type]=files[pathname];res.writeHead(200,{'Content-Type':type});return res.end(fs.readFileSync(path.join(__dirname,'public',file)));}
+  if((req.method==='GET'||req.method==='HEAD')&&files[pathname]){const [file,type]=files[pathname];res.writeHead(200,{'Content-Type':type,...(file.endsWith('.png')||file.endsWith('.svg')?{'Cache-Control':'public, max-age=86400'}:{})});if(req.method==='HEAD')return res.end();return res.end(fs.readFileSync(path.join(__dirname,'public',file)));}
   if(req.method==='GET'&&req.url==='/api/history/devices'){try{return send(200,{devices:await history.devices()});}catch{return send(503,{error:'История пока недоступна'});}}
   if(req.method==='GET'&&req.url.startsWith('/api/history?')){try{const q=new URL(req.url,'http://localhost').searchParams;if(!history)return send(503,{error:'History unavailable'});return send(200,await history.query(q.get('device'),q.get('port'),Number(q.get('hours'))));}catch{return send(400,{error:'Не удалось получить историю'});}}
   if(!((req.method==='GET'&&req.url==='/api/overview')||(req.method==='POST'&&req.url==='/api/control')))return send(404,{error:'Not found'});
