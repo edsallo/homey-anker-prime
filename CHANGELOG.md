@@ -1,3 +1,7 @@
+## 0.1.16
+- Add native overheat alarm; missing/stale telemetry stays unknown.
+- Synology: arbitrary chart-range selection, wheel/pinch zoom, pan, reset, and 3/12-hour presets.
+
 # 0.1.13
 
 - Native advanced settings: three Anker experimental switches and four-slot cloud profile editor.

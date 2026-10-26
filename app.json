@@ -1,6 +1,6 @@
 {
   "id": "com.ed.anker-prime",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "compatibility": ">=13.5.0",
   "sdk": 3,
   "name": {
@@ -60,7 +60,8 @@
         "anker_selected_label",
         "measure_power.selected",
         "measure_voltage.selected",
-        "measure_current.selected"
+        "measure_current.selected",
+        "alarm_heat"
       ],
       "capabilitiesOptions": {
         "measure_power.usb": {
@@ -248,6 +249,12 @@
             "en": "Port current"
           },
           "decimals": 2
+        },
+        "alarm_heat": {
+          "title": {
+            "ru": "Перегрев",
+            "en": "Overheating"
+          }
         }
       },
       "platforms": [

@@ -3,6 +3,7 @@ const Homey=require('homey');
 module.exports=class PrimeDevice extends Homey.Device {
   async onInit(){
     if(this.getData().port)await this.initPortFeatures();
+    if(!this.getData().port&&!this.hasCapability('alarm_heat'))await this.addCapability('alarm_heat');
     this.lastWrite=0;this.lastMode=null;this.updates=Promise.resolve();
     await this.setUnavailable(this.homey.__('connecting'));
     if(!this.getData().port&&!this.hasCapability('anker_mode_current'))await this.addCapability('anker_mode_current');
@@ -98,7 +99,7 @@ module.exports=class PrimeDevice extends Homey.Device {
       const selected=mode>=1&&mode<=5?String(mode):null;
       if(this.getCapabilityValue('anker_mode')!==selected)await this.setCapabilityValue('anker_mode',selected);
     }
-    if(!port){await this.showSelectedPort();await this.syncDisplaySettings(s);}
+    if(!port){const fresh=Date.now()-s.settings.overTemperatureUpdated<=45000&&typeof s.settings.overTemperature==='boolean';await this.setCapabilityValue('alarm_heat',fresh?s.settings.overTemperature:null);await this.showSelectedPort();await this.syncDisplaySettings(s);}
     if(port)await this.updatePortFeatures(s);
     if(Date.now()-this.lastWrite<10000)return;this.lastWrite=Date.now();
     if(port==='A'){
@@ -114,6 +115,7 @@ module.exports=class PrimeDevice extends Homey.Device {
     }
   }
   async markOffline(){
+    if(!this.getData().port&&this.hasCapability('alarm_heat'))await this.setCapabilityValue('alarm_heat',null);
     if(this.energy)this.energy.last=null;
     if(!this.getData().port&&this.wasOnline===true)this.homey.flow.getDeviceTriggerCard('anker_connection_changed').trigger(this,{online:false}).catch(()=>{});
     this.wasOnline=false;if(!this.getData().port)await this.showSelectedPort();await this.setUnavailable(this.homey.__('offline'));

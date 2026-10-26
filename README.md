@@ -156,3 +156,7 @@ Replaces the slider with a watt-value picker and adds the saved limit to sensor 
 USB-C picker and Flow use 5 W steps; automatic reductions use multiples of 5 W. A1 + A2 retains 0/15/24 W with a separate Flow action. Existing off-step limits are shown exactly in sensor readings; the picker is empty until a new value is selected. Updating does not change charger budgets.
 
 [Native Homey profile editor and experimental settings](docs/PROFILES.en.md).
+
+### 0.1.16 — перегрев / Overheating
+
+В основной карточке станции добавлен стандартный индикатор Homey «Перегрев» (alarm_heat), включая стандартные Flow-триггеры и условие. При отсутствии свежих данных значение неизвестно. This reports a protection flag, not a numeric temperature.

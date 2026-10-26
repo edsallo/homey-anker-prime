@@ -14,7 +14,7 @@ function createServer(config,history){
   const pathname=new URL(req.url,'http://localhost').pathname;
   if((req.method==='GET'||req.method==='HEAD')&&files[pathname]){const [file,type]=files[pathname];res.writeHead(200,{'Content-Type':type,...(file.endsWith('.png')||file.endsWith('.svg')?{'Cache-Control':'public, max-age=86400'}:{})});if(req.method==='HEAD')return res.end();return res.end(fs.readFileSync(path.join(__dirname,'public',file)));}
   if(req.method==='GET'&&req.url==='/api/history/devices'){try{return send(200,{devices:await history.devices()});}catch{return send(503,{error:'История пока недоступна'});}}
-  if(req.method==='GET'&&req.url.startsWith('/api/history?')){try{const q=new URL(req.url,'http://localhost').searchParams;if(!history)return send(503,{error:'History unavailable'});return send(200,await history.query(q.get('device'),q.get('port'),Number(q.get('hours'))));}catch{return send(400,{error:'Не удалось получить историю'});}}
+  if(req.method==='GET'&&req.url.startsWith('/api/history?')){try{const q=new URL(req.url,'http://localhost').searchParams;if(!history)return send(503,{error:'History unavailable'});return send(200,await history.query(q.get('device'),q.get('port'),Number(q.get('hours')),Date.now(),q.has('from')||q.has('to')?{from:Number(q.get('from')),to:Number(q.get('to'))}:null));}catch{return send(400,{error:'Не удалось получить историю'});}}
   if(!((req.method==='GET'&&req.url==='/api/overview')||(req.method==='POST'&&req.url==='/api/control')))return send(404,{error:'Not found'});
   if(req.method==='POST'&&(!origins.has(req.headers.origin)||req.headers['x-anker-request']!=='1'||!req.headers['content-type']?.startsWith('application/json')))return send(403,{error:'Request denied'});
   try{
